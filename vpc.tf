@@ -35,7 +35,14 @@ resource "aws_subnet" "private" {
         Name = "privatesubnet"
     }
 }
-
+resource "aws_subnet" "private2" {
+    vpc_id = aws_vpc.apps.id
+    cidr_block = "10.0.3.0/24"
+    availability_zone = "ap-southeast-1c"
+    tags = {
+        Name = "privatesubnet"
+    }
+}
 resource "aws_route_table_association" "public" {
     subnet_id = aws_subnet.public.id
     route_table_id = aws_route_table.past1.id
