@@ -49,7 +49,7 @@ resource "aws_security_group" "WebserverGroup" {
         from_port        = 22
         to_port          = 22
         protocol         = "tcp"
-        cidr_blocks      = ["10.0.1.10/32"]
+        cidr_blocks      = ["${aws_instance.Bastion.private_ip}/32"]
     }
 
     egress {
