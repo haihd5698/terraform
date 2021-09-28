@@ -1,3 +1,12 @@
+resource "aws_security_group_rule" "SSH" {
+    type              = "ingress"
+    from_port         = 22
+    to_port           = 22
+    protocol          = "tcp"
+    security_group_id = aws_security_group.WebserverGroup.id
+    # cidr_blocks       = ["${aws_instance.Bastion.private_ip}/32"]
+    source_security_group_id = aws_security_group.BastionGroup.id
+}
 
 resource "aws_security_group" "BastionGroup" {
     name        = "BastionGroup"
@@ -44,13 +53,13 @@ resource "aws_security_group" "WebserverGroup" {
         protocol         = "tcp"
         cidr_blocks      = ["0.0.0.0/0"]
     }
-    ingress {
-        description      = "SSH from Bastion"
-        from_port        = 22
-        to_port          = 22
-        protocol         = "tcp"
-        cidr_blocks      = ["${aws_instance.Bastion.private_ip}/32"]
-    }
+    # ingress {
+    #     description      = "SSH from Bastion"
+    #     from_port        = 22
+    #     to_port          = 22
+    #     protocol         = "tcp"
+    #     cidr_blocks      = ["${aws_instance.Bastion.private_ip}/32"]
+    # }
 
     egress {
         from_port        = 0
