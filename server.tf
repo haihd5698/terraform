@@ -35,16 +35,16 @@ resource "aws_instance" "Bastion" {
         Name = "Bastion"
     }
 }
-resource "aws_instance" "Source" {
-    ami = "ami-0d058fe428540cd89"
-    instance_type = "t2.micro"
-    key_name = "main-key1"
-    network_interface {
-        device_index = 0
-        network_interface_id = aws_network_interface.WebserverInterface.id
-    }
-    user_data = "${file("config_server.sh")}"
-    tags = {
-        Name = "WebServer"
-    }
-}
+# resource "aws_instance" "Source" {
+#     ami = "ami-0d058fe428540cd89"
+#     instance_type = "t2.micro"
+#     key_name = "main-key1"
+#     network_interface {
+#         device_index = 0
+#         network_interface_id = aws_network_interface.WebserverInterface.id
+#     }
+#     user_data = "${file("config_server.sh")}"
+#     tags = {
+#         Name = "WebServer"
+#     }
+# }

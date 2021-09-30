@@ -27,6 +27,14 @@ resource "aws_subnet" "public" {
         Name = "publicsubnet"
     }
 }
+resource "aws_subnet" "public2" {
+    vpc_id = aws_vpc.apps.id
+    cidr_block = "10.0.10.0/24"
+    availability_zone = "ap-southeast-1b"
+    tags = {
+        Name = "publicsubnet"
+    }
+}
 resource "aws_subnet" "private" {
     vpc_id = aws_vpc.apps.id
     cidr_block = "10.0.2.0/24"
@@ -37,7 +45,7 @@ resource "aws_subnet" "private" {
 }
 resource "aws_subnet" "private2" {
     vpc_id = aws_vpc.apps.id
-    cidr_block = "10.0.3.0/24"
+    cidr_block = "10.0.20.0/24"
     availability_zone = "ap-southeast-1c"
     tags = {
         Name = "privatesubnet"

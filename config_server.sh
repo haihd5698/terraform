@@ -1,8 +1,8 @@
 #!bin/bash
 sudo apt update -y
 sudo apt install nginx php-mysql php-fpm -y
-cd cd /var/www/
-git clone https://github.com/WordPress/WordPress.git wordpress
+cd /var/www/
+sudo git clone https://github.com/WordPress/WordPress.git wordpress
 sudo chmod 777 -R wordpress
 sudo echo "server {
         listen 80 default_server;
@@ -11,7 +11,7 @@ sudo echo "server {
         index index.html index.htm index.php index.nginx-debian.html;
         server_name _;
         location / {
-                try_files $uri $uri/ =404;
+                try_files \$uri \$uri/ =404;
         }
         location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
