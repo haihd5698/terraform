@@ -4,7 +4,7 @@ resource "aws_launch_configuration" "as_conf" {
   image_id      = "ami-0d058fe428540cd89"
   instance_type = "t2.micro"
   user_data = "${file("config_server.sh")}"
-  security_groups = [aws_security_group.BastionGroup.id]
+  security_groups = [aws_security_group.WebserverGroup.id]
   lifecycle {
     create_before_destroy = true
   }
@@ -78,4 +78,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm_scaledown" {
 
   alarm_description = "This metric monitors ec2 cpu utilization"
   alarm_actions     = [aws_autoscaling_policy.cpu_policy_scaleup.arn]
+}
+resource "aws_autoscaling_attachment" "asg_attachment" {
+  autoscaling_group_name = aws_autoscaling_group.asg_test.id
+  elb                    = aws_elb.elb.id
 }
