@@ -1,9 +1,9 @@
 resource "aws_launch_configuration" "as_conf" {
   name_prefix   = "autoscalingWeb-"
   key_name      = "main-key1"
-  image_id      = "ami-0d058fe428540cd89"
+  image_id      = "ami-035ecd4b3adc5147e"
   instance_type = "t2.micro"
-  user_data = "${file("config_server.sh")}"
+  # user_data = "${file("config_server.sh")}"
   security_groups = [aws_security_group.WebserverGroup.id]
   lifecycle {
     create_before_destroy = true
@@ -39,7 +39,7 @@ resource "aws_autoscaling_policy" "cpu_policy_scaleup" {
 }
 resource "aws_autoscaling_policy" "cpu_policy_scaledown" {
   name                   = "asg-policy"
-  scaling_adjustment     = 1
+  scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 60
   autoscaling_group_name = aws_autoscaling_group.asg_test.name
@@ -83,3 +83,12 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.asg_test.id
   elb                    = aws_elb.elb.id
 }
+
+# resource "aws_nat_gateway" "public" {
+#   connectivity_type = "private"
+#   subnet_id         = aws_subnet.public.id
+# }
+# resource "aws_nat_gateway" "public2" {
+#   connectivity_type = "private"
+#   subnet_id         = aws_subnet.public2.id
+# }
